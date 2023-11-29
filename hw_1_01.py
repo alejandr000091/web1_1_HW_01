@@ -6,17 +6,16 @@ import pickle
 from collections import UserDict
 from datetime import date, datetime
 #######################
-# from pprint import pprint
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 try:
-    from .notes_class import NoteBook, add, edit, search_note, delete
-    from .sort_folder import main as sort_files
+    # from .notes_class import NoteBook, add, edit, search_note, delete
+    # from .sort_folder import main as sort_files
     from .birthday import get_birthdays_per_week as birthday_from_now
     from .convert import convert_str_dict
 except:
-    from notes_class import NoteBook, add, edit, search_note, delete
-    from sort_folder import main as sort_files
+    # from notes_class import NoteBook, add, edit, search_note, delete
+    # from sort_folder import main as sort_files
     from birthday import get_birthdays_per_week as birthday_from_now
     from convert import convert_str_dict
 #######################
@@ -323,6 +322,7 @@ class AddressBook(UserDict):
         
      
     def save_address_book(self):
+        # directory = '.APP_HOME'
         directory = 'C:\\py_robot'
         self.file_name = os.path.join(directory, 'address_book.bin')
         os.makedirs(directory, exist_ok=True)
@@ -330,6 +330,7 @@ class AddressBook(UserDict):
             pickle.dump(self, file)
 
     def load_address_book(self):
+        # directory = '.APP_HOME'
         directory = 'C:\\py_robot'
         self.file_name = os.path.join(directory, 'address_book.bin')
         # print(self.file_name)
@@ -344,7 +345,7 @@ class AddressBook(UserDict):
 
 
 records = AddressBook()
-notes_obj = NoteBook()
+# notes_obj = NoteBook()
 
 
 def search_user(*args):
@@ -375,10 +376,10 @@ def load_notes(*args):
     load_records = notes_obj.load_notes()
     if load_records is not None:
         notes_obj = load_records
-        # return "Note book loaded successfully"
+        return "Note book loaded successfully"
         return notes_obj
     else:
-        # return "Failed to load note book"
+        return "Failed to load note book"
         return 
 
 
@@ -577,54 +578,54 @@ def delete_record(*args):
     records.delete(name)
     return f"Contact name: {name}, delete successfull"
 
-def add_note(*args):
-    global notes_obj
-    tag = []
-    text = ''
-    for i in args:
-        if "#" in i:
-             tag.append(i)
-        else:
-            text += i+" "
-    notes_obj, text = add(notes_obj, tag, text)
-    return text
+# def add_note(*args):
+#     global notes_obj
+#     tag = []
+#     text = ''
+#     for i in args:
+#         if "#" in i:
+#              tag.append(i)
+#         else:
+#             text += i+" "
+#     notes_obj, text = add(notes_obj, tag, text)
+#     return text
 
 
-def edit_note(*args):
-    global notes_obj
-    tag = []
-    text = ''
-    for i in args:
-        if "#" in i:
-             tag.append(i)
-        else:
-            text += i+" "
-    result, to_write = edit(notes_obj, tag, text)
-    if result == "error":
-        return to_write
-    else:
-        notes_obj = result
-        return to_write
+# def edit_note(*args):
+#     global notes_obj
+#     tag = []
+#     text = ''
+#     for i in args:
+#         if "#" in i:
+#              tag.append(i)
+#         else:
+#             text += i+" "
+#     result, to_write = edit(notes_obj, tag, text)
+#     if result == "error":
+#         return to_write
+#     else:
+#         notes_obj = result
+#         return to_write
 
 
-def search_note_(*args):
-    global notes_obj
-    tag = args
-    result = search_note(notes_obj, tag)
-    if result == "error":
-        return f"Note not found with this tags: {tag}"
-    else:
-        return result
+# def search_note_(*args):
+#     global notes_obj
+#     tag = args
+#     result = search_note(notes_obj, tag)
+#     if result == "error":
+#         return f"Note not found with this tags: {tag}"
+#     else:
+#         return result
 
-def delete_note(*args):
-    global notes_obj
-    tag = args
-    result, text = delete(notes_obj, tag)
-    # if notes_obj == result:
-    #     print(f"Tags:{tag} not found")
-    # else:
-    notes_obj = result
-    return text
+# def delete_note(*args):
+#     global notes_obj
+#     tag = args
+#     result, text = delete(notes_obj, tag)
+#     # if notes_obj == result:
+#     #     print(f"Tags:{tag} not found")
+#     # else:
+#     notes_obj = result
+#     return text
 
 def unknown_cmd(*args):
     return "Unknown command. Try again. Or use 'help'"
@@ -673,14 +674,14 @@ def get_phone(*args):
     if rec:
         return rec
 
-def sort_folder_by_path(*args):
-    path = str(input("Write path to folder: "))
-    if os.path.exists(path):
-        result = sort_files(path)
-        return result
-        # sort_files(path)
-    else:
-        return "Path not exist."  
+# def sort_folder_by_path(*args):
+#     path = str(input("Write path to folder: "))
+#     if os.path.exists(path):
+#         result = sort_files(path)
+#         return result
+#         # sort_files(path)
+#     else:
+#         return "Path not exist."  
 
 # @user_error 
 def show_all(*args):
@@ -742,10 +743,10 @@ def bd_in_days(*args):
 #################################
 
 COMMANDS = {
-            add_note:"add_note",
-            edit_note:"edit_note",
-            search_note_:"search_note",
-            delete_note:"delete_note",
+            # add_note:"add_note",
+            # edit_note:"edit_note",
+            # search_note_:"search_note",
+            # delete_note:"delete_note",
             add_record: "add",
             bd_add: "bd_add",
             mail_add: "mail_add",
@@ -758,14 +759,18 @@ COMMANDS = {
             hello_cmd: "hello",
             get_phone: "phone",
             show_all: "show_all",
-            sort_folder_by_path: "sort_folder",
+            save_ab: "save_ab",
+            load_ab: "load_ab",
+            # save_notes: "save_notes",
+            # load_notes: "load_notes",
+            # sort_folder_by_path: "sort_folder",
             search_user: "search",
             help_cmd: "help",
             close_cmd: ("good bye", "close", "exit")
             }
 
 cmd_list = ["hello", "help", "add", "add_note", "edit_note", "search_note", "delete_note", "mail_add", "mail_change", "bd_add", "location_add",
-            "days_to_bd", "bd_in_days", "change", "delete", "phone", "show_all", "save_ab", "search", "sort_folder", "load_ab", "good bye", "close", "exit"]
+            "days_to_bd", "bd_in_days", "change", "delete", "phone", "show_all", "save_ab","save_notes", "search", "sort_folder", "load_ab", "load_notes", "good bye", "close", "exit"]
 
 def parser(text: str):
     for func, kw in COMMANDS.items():
@@ -795,17 +800,17 @@ def main():
             BotView.display_content(func(*data))
         if func == close_cmd:
             save_ab("1")
-            save_notes(notes_obj)
+            # save_notes(notes_obj)
             break
 
 
 if __name__ == "__main__":
     #################################
-    try:
-        records = load_ab("1")
-        notes_obj = load_notes(notes_obj)
-        main()
-    except:
-        records = AddressBook()
-        main()
+    # try:
+    #     records = load_ab("1")
+    #     # notes_obj = load_notes(notes_obj)
+    main()
+    # except:
+    #     records = AddressBook()
+    #     main()
     #################################

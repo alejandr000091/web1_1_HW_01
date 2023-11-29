@@ -34,12 +34,16 @@ class NoteBook(UserDict):
         return self
 
     def save_notes(self, notates):  # noqa: F821
+        # directory = ".APP_HOME"
+        # file_name = os.path.join(directory, 'notes.bin')
         file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
         os.makedirs(os.path.dirname(file_name), exist_ok=True)
         with open(file_name, "wb") as fh:
             pickle.dump(notates.data, fh)
     
     def load_notes(self):
+        # directory = ".APP_HOME"
+        # file_name = os.path.join(directory, 'notes.bin')
         file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
         if exists(file_name):
 
