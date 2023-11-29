@@ -6,9 +6,9 @@ name = "pypi"
 [packages]
 prompt-toolkit = "==3.0.41"
 wcwidth = "==0.2.12"
+setuptools  = "==69.0.2"
 
 [dev-packages]
 
 [requires]
-prompt-toolkit = "3.0.41"
-wcwidth = "0.2.12"
+python_version = "3.11"
