@@ -1,0 +1,22 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "aea2327363c2b2da6bb6601e1c824dc80116bf2ae8370b79c9ee94ce13e60618"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "prompt-toolkit": "3.0.41",
+            "python_version": "3.11",
+            "wcwidth": "0.2.12"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {},
+    "develop": {}
+}
