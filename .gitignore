@@ -1,4 +1,5 @@
-myenvenv/
-__pycache__/
-.APP_HOME/
-
+/myenvenv
+/__pycache__
+/.APP_HOME
+/build
+/bhb.egg-info

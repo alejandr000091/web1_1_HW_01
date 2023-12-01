@@ -3,6 +3,11 @@ from genericpath import exists
 import os
 import pickle
 
+# const directory and filename 
+# DIRECTORY = '.APP_HOME' #docker directory
+DIRECTORY = 'C:\\py_robot'
+FILE_NAME = "notes.bin"
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -19,7 +24,7 @@ class Note(Field):
     def __repr__(self):
         return str(self.value)
 
-class Record:
+class Record_note:
     def __init__(self, tags: tuple, note: str) -> None:
         self.tags = [Tag(tag) for tag in tags] if tags else []
         self.note = Note(note)
@@ -29,35 +34,33 @@ class Record:
 
 
 class NoteBook(UserDict):
-    def add_record(self, new_note: Record) -> None:
+    def add_record(self, new_note: Record_note) -> None:
         self.data[tuple(new_note.tags)] = new_note.note
         return self
 
-    def save_notes(self, notates):  # noqa: F821
-        # directory = ".APP_HOME"
-        # file_name = os.path.join(directory, 'notes.bin')
-        file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
-        os.makedirs(os.path.dirname(file_name), exist_ok=True)
-        with open(file_name, "wb") as fh:
-            pickle.dump(notates.data, fh)
+    def save_notes(self):  # noqa: F821
+        # file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
+        # os.makedirs(os.path.dirname(file_name), exist_ok=True)
+        self.file_name = os.path.join(DIRECTORY, FILE_NAME)
+        os.makedirs(DIRECTORY, exist_ok=True)
+        with open(self.file_name, "wb") as fh:
+            pickle.dump(self, fh)
     
     def load_notes(self):
-        # directory = ".APP_HOME"
-        # file_name = os.path.join(directory, 'notes.bin')
-        file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
-        if exists(file_name):
-
-            with open(file_name, "rb") as fh:
-                unpacked = pickle.load(fh)
-
-            for name, object in unpacked.items():
-                self[name] = object
-        
-            return self
+        # file_name = os.getenv("SystemDrive")+"\\py_robot\\notes.bin"
+        self.file_name = os.path.join(DIRECTORY, FILE_NAME)
+        os.makedirs(DIRECTORY, exist_ok=True)
+        try:
+            if os.path.exists(self.file_name):
+                with open(self.file_name, "rb") as file:
+                    unpacked = pickle.load(file)
+                return unpacked
+        except:
+            return "File not found"
 
 
 def add(notebooks : NoteBook, tag:dict, text:str):
-    new_note = Record(tag, text)
+    new_note = Record_note(tag, text)
     notebooks = notebooks.add_record(new_note)
     tgs = ''
     for i in tag:
